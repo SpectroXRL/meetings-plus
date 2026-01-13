@@ -7,10 +7,16 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
+import { FileService } from './file/file.service';
+import { AiService } from './ai/ai.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly fileService: FileService,
+    private readonly aiService: AiService,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -19,14 +25,12 @@ export class AppController {
 
   @Post('/transcript')
   @UseInterceptors(FileInterceptor('transcript'))
-  postTranscript(
+  async postTranscript(
     @UploadedFile()
     file?: Express.Multer.File,
-  ): void {
-    console.log(file);
-    const content = (file as { buffer: Buffer } | undefined)?.buffer.toString(
-      'utf-8',
-    );
-    console.log(content);
+  ): Promise<void> {
+    const content = this.fileService.processContent(file);
+    const issues = await this.aiService.generateIssues(content);
+    console.log(issues);
   }
 }
