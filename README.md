@@ -1,2 +1,2 @@
 # meetings-plus
-Meetings+ is a meeting outcomes engine that transforms raw meeting transcripts into structured, system-readable outputs such as decisions, commitments, risks, and open questions.  Rather than focusing on summaries or recordings, Meetings+ treats meetings as **state-changing events** that produce actionable outcomes.
+Meetings Plus is a service that extracts actionable issues/tasks from meeting summaries using AI (Google Gemini) and integrates with productivity tools like Linear.
