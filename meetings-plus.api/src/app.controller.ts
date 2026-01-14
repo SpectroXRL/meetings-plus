@@ -9,6 +9,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { FileService } from './file/file.service';
 import { AiService } from './ai/ai.service';
+import { LinearService } from './linear/linear.service';
 
 @Controller()
 export class AppController {
@@ -16,6 +17,7 @@ export class AppController {
     private readonly appService: AppService,
     private readonly fileService: FileService,
     private readonly aiService: AiService,
+    private readonly linearService: LinearService,
   ) {}
 
   @Get()
@@ -30,7 +32,6 @@ export class AppController {
     file?: Express.Multer.File,
   ): Promise<void> {
     const content = this.fileService.processContent(file);
-    const issues = await this.aiService.generateIssues(content);
-    console.log(issues);
+    await this.linearService.createIssues(content);
   }
 }
