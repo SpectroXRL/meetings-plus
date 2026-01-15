@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { LinearClient } from '@linear/sdk';
 import { AiService } from 'src/ai/ai.service';
-import { linearIssuesSchema, LinearIssues } from './linear-schema.interface';
+import { getLinearSchemas, LinearIssues } from './linear-schema.interface';
 
 @Injectable()
 export class LinearService {
@@ -14,6 +14,7 @@ export class LinearService {
   }
 
   async extractIssues(content: string | undefined): Promise<LinearIssues> {
+    const { linearIssuesSchema } = await getLinearSchemas();
     return await this.aiService.generateItems(content, linearIssuesSchema);
   }
 
