@@ -5,12 +5,29 @@ import { getLinearSchemas, LinearIssues } from './linear-schema.interface';
 
 @Injectable()
 export class LinearService {
-  private readonly linearClient: LinearClient;
+  private linearClient: LinearClient;
+  private accessToken: string | null = null;
 
   constructor(private readonly aiService: AiService) {
     this.linearClient = new LinearClient({
       apiKey: process.env.LINEAR_API_KEY,
     });
+  }
+
+  setAccessToken(token: string): void {
+    this.accessToken = token;
+
+    this.linearClient = new LinearClient({
+      accessToken: token,
+    });
+  }
+
+  getAccessToken(): string {
+    return this.accessToken ?? '';
+  }
+
+  isConnected(): boolean {
+    return this.accessToken !== null;
   }
 
   async extractIssues(content: string | undefined): Promise<LinearIssues> {
