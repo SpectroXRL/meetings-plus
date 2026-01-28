@@ -7,10 +7,11 @@ import { AiModule } from './ai/ai.module';
 import { SchemabuilderService } from './schemabuilder/schemabuilder.service';
 import { LinearService } from './linear/linear.service';
 import { LinearModule } from './linear/linear.module';
+import { LinearController } from './linear/linear.controller';
 
 @Module({
   imports: [ConfigModule.forRoot(), FileModule, AiModule, LinearModule],
-  controllers: [AppController],
+  controllers: [AppController, LinearController],
   providers: [AppService, SchemabuilderService, LinearService],
 })
 export class AppModule {}
