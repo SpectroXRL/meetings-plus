@@ -54,6 +54,74 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+select {
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+  padding: 0.6em 1em;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: inherit;
+  cursor: pointer;
+  min-width: 200px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+select:hover {
+  border-color: #646cff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #646cff;
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.2);
+}
+
+input[type="file"] {
+  border-radius: 8px;
+  border: 1px dashed #3a3a3a;
+  padding: 1em;
+  font-size: 0.9em;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s, background-color 0.25s;
+}
+
+input[type="file"]:hover {
+  border-color: #646cff;
+  background-color: #2a2a2a;
+}
+
+input[type="file"]::file-selector-button {
+  border-radius: 6px;
+  border: none;
+  padding: 0.5em 1em;
+  margin-right: 1em;
+  font-size: 0.9em;
+  font-family: inherit;
+  background-color: #646cff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #535bf2;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  min-width: 320px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -64,5 +132,24 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+
+  select {
+    background-color: #f9f9f9;
+    border-color: #ddd;
+  }
+
+  input[type="file"] {
+    background-color: #f9f9f9;
+    border-color: #ddd;
+  }
+
+  input[type="file"]:hover {
+    background-color: #f0f0f0;
+  }
+
+  form {
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 }

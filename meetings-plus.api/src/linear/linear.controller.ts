@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Post,
@@ -15,6 +16,11 @@ import { Response } from 'express';
 
 const REDIRECT_URI = 'http://localhost:3000/linear/callback';
 
+interface TranscriptDto {
+  teamId: string;
+  projectId: string;
+}
+
 @Controller('linear')
 export class LinearController {
   constructor(
@@ -26,11 +32,12 @@ export class LinearController {
   @Post('/transcript')
   @UseInterceptors(FileInterceptor('transcript'))
   async postTranscript(
+    @Body() body: TranscriptDto,
     @UploadedFile()
     file?: Express.Multer.File,
   ): Promise<void> {
     const content = this.fileService.processContent(file);
-    await this.linearService.createIssues(content);
+    await this.linearService.createIssues(content, body);
   }
 
   @Get('callback')
@@ -69,5 +76,15 @@ export class LinearController {
   @Get('status')
   getStatus() {
     return { connected: this.linearService.isConnected() };
+  }
+
+  @Get('teams')
+  async getTeams() {
+    return await this.linearService.getTeams();
+  }
+
+  @Get('projects')
+  async getProjects(@Query('teamId') teamId: string) {
+    return await this.linearService.getProjects(teamId);
   }
 }
